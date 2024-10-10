@@ -3,12 +3,13 @@
 Type-annotated function safely_get_value
 """
 
-from typing import Mapping, Any, Union
+from typing import Mapping, Any, Union, TypeVar
+T = TypeVar('T')
 
 
 def safely_get_value(dct: Mapping, key: Any,
-                     default: Union[Any, None] = None) \
-        -> Union[Any, None]:
+                     default: Union[T, None] = None) \
+        -> Union[T, None]:
     """
     Function that returns the value of a key safely
     """
