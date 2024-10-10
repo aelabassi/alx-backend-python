@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-pycodestyle --first "$1"
+
+
+for arg in "$@"; do
+    echo "Checking $arg with pycodestyle"
+    pycodestyle --first "$arg"
+    echo "----------------"
+done
