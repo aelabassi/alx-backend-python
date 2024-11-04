@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Unittests for client """
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock, Mock
 from parameterized import parameterized
 from client import GithubOrgClient
 
@@ -18,3 +18,15 @@ class TestGithubOrgClient(unittest.TestCase):
         test_class = GithubOrgClient(input)
         test_class.org()
         mock.assert_called_once_with(f'https://api.github.com/orgs/{input}')
+
+    def test_public_repos(self):
+        """Test that the list of repos is what you expect"""
+        test_class = GithubOrgClient("google")
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock:
+            payload = {
+                "repos_url": "http://test.com"
+            }
+            mock.return_value = payload
+            test_class = GithubOrgClient("google")
+            self.assertEqual(test_class._public_repos_url, "http://test.com")
