@@ -64,8 +64,5 @@ class TestMemoize(unittest.TestCase):
             mock.assert_called_once()
 
 
-
-
-
 if __name__ == '__main__':
     unittest.main()
