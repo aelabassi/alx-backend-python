@@ -21,12 +21,12 @@ class TestGithubOrgClient(unittest.TestCase):
 
     def test_public_repos(self):
         """Test that the list of repos is what you expect"""
-        test_class = GithubOrgClient("google")
-        with patch('client.GithubOrgClient._public_repos_url',
+        with patch('client.GithubOrgClient.org',
                    new_callable=PropertyMock) as mock:
             payload = {
-                "repos_url": "http://test.com"
+                "repos_url": "http://test.com",
             }
             mock.return_value = payload
             test_class = GithubOrgClient("google")
-            self.assertEqual(test_class._public_repos_url, "http://test.com")
+            repos_pub = test_class._public_repos_url
+            self.assertEqual(repos_pub, payload["repos_url"])
